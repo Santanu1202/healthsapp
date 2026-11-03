@@ -1,0 +1,268 @@
+
+.booking-page {
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 40px 16px;
+    background: #f3f8f7;
+    color: #173638;
+    font-family: Arial, sans-serif;
+}
+
+.booking-card {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 34px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #dceae7;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(16, 50, 50, 0.07);
+}
+
+.booking-heading {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.booking-heading-icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    margin: 0 auto 12px;
+    border-radius: 12px;
+    background: #087d73;
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.booking-eyebrow {
+    margin: 0 0 8px;
+    color: #087d73;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+}
+
+.booking-heading h1 {
+    margin: 0 0 10px;
+    color: #173638;
+    font-size: 30px;
+}
+
+.booking-heading > p:last-child {
+    margin: 0;
+    color: #687d79;
+    line-height: 1.6;
+}
+
+.booking-step {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin: 23px 0 10px;
+}
+
+.booking-step-number {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background: #e0f2ef;
+    color: #087d73;
+    font-weight: 700;
+}
+
+.booking-step label {
+    color: #173638;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.booking-control {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    border: 1px solid #cbdedb;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #173638;
+    font: inherit;
+}
+
+.booking-control:focus {
+    outline: 2px solid #087d73;
+    outline-offset: 1px;
+}
+
+.booking-control:disabled {
+    background: #f3f8f7;
+    color: #879692;
+    cursor: not-allowed;
+}
+
+.doctor-schedule {
+    margin-top: 14px;
+    padding: 15px 17px;
+    border: 1px solid #d5e9e4;
+    border-radius: 12px;
+    background: #f3f8f7;
+    color: #536e6b;
+    font-size: 14px;
+}
+
+.doctor-schedule strong {
+    color: #087d73;
+}
+
+.doctor-schedule p {
+    margin: 9px 0 0;
+}
+
+.doctor-schedule p span {
+    font-weight: 600;
+    color: #173638;
+}
+
+.booking-primary-button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #087d73;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.booking-primary-button:hover:not(:disabled) {
+    background: #06665e;
+}
+
+.booking-primary-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.booking-slot-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.booking-slot {
+    padding: 12px 8px;
+    border: 1px solid #cbdedb;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #087d73;
+    cursor: pointer;
+    font: inherit;
+}
+
+.booking-slot:hover,
+.booking-slot-selected {
+    border-color: #087d73;
+    background: #e0f2ef;
+    color: #075d56;
+    font-weight: 700;
+}
+
+.booking-symptoms {
+    margin-top: 24px;
+}
+
+.booking-symptoms > label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.booking-symptoms textarea {
+    resize: vertical;
+}
+
+.booking-symptoms > p {
+    color: #536e6b;
+    font-size: 14px;
+}
+
+.booking-next-step-note {
+    padding: 12px;
+    border-radius: 9px;
+    background: #f3f8f7;
+    line-height: 1.5;
+}
+
+.booking-message {
+    margin: 18px 0 0;
+    color: #087d73;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+    .booking-page {
+        padding: 20px 12px;
+    }
+
+    .booking-card {
+        padding: 24px 18px;
+        border-radius: 15px;
+    }
+
+    .booking-heading h1 {
+        font-size: 25px;
+    }
+
+    .booking-slot-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.booking-confirmation {
+    margin-top: 20px;
+    padding: 18px;
+    border: 1px solid #cde6e1;
+    border-radius: 12px;
+    background: #f3f8f7;
+}
+
+.booking-confirmation h3 {
+    margin-top: 0;
+    color: #087d73;
+}
+
+.booking-secondary-button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 13px;
+    border: 1px solid #087d73;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #087d73;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.booking-success {
+    margin-top: 20px;
+    padding: 18px;
+    border: 1px solid #b9ded5;
+    border-radius: 12px;
+    background: #e0f2ef;
+    color: #174b45;
+    overflow-wrap: anywhere;
+}
+
+.booking-success h3 {
+    margin-top: 0;
+    color: #087d73;
+}

@@ -1,0 +1,720 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    font-family: "DM Sans", Arial, sans-serif;
+    color: #102d30;
+    background: #ffffff;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.home-page {
+    width: 100%;
+    overflow: hidden;
+}
+
+.home-header {
+    background: #fff;
+    border-bottom: 1px solid #e6eeec;
+}
+
+.home-header-inner {
+    max-width: 1100px;
+    min-height: 60px;
+    padding: 10px 0;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.home-brand,
+.footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.brand-icon {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #08766f;
+    color: white;
+    border-radius: 8px;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.home-nav,
+.home-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.home-nav a {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.home-nav a:hover,
+.track-link a,
+.section-heading > a {
+    color: #08766f;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 11px 21px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    border-color: #b9d2ce;
+    background: white;
+    color: #102d30;
+}
+
+.btn-dark {
+    background: #102d30;
+    color: white;
+}
+
+.btn-primary {
+    background: #08766f;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #06655f;
+}
+
+.hero-section {
+    background: #f5f9f8;
+    border-bottom: 1px solid #e3eeeb;
+    padding: 46px 0 58px;
+}
+
+.hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(360px, 1fr);
+    gap: 40px;
+    align-items: start;
+}
+
+.hero-left {
+    padding-top: 0;
+}
+
+.eyebrow {
+    display: inline-block;
+    background: #e2f2ef;
+    color: #08766f;
+    border-radius: 20px;
+    padding: 5px 11px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.hero-left h1 {
+    max-width: 550px;
+    margin: 17px 0 12px;
+    font-size: clamp(36px, 4.3vw, 49px);
+    line-height: 1.06;
+    letter-spacing: -1.7px;
+    font-weight: 700;
+}
+
+.hero-left h1 span {
+    display: block;
+    color: #08766f;
+}
+
+.hero-description {
+    max-width: 500px;
+    color: #587075;
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0 0 22px;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 26px;
+}
+
+.hero-actions .btn {
+    min-height: 43px;
+}
+
+.schedule-link {
+    color: #08766f;
+    border-color: #08766f;
+}
+
+.doctor-search-card,
+.booking-card {
+    background: #fff;
+    border: 1px solid #dfebe8;
+    border-radius: 16px;
+    box-shadow: 0 12px 35px rgba(16, 45, 48, 0.06);
+}
+
+.doctor-search-card {
+    padding: 17px 16px;
+}
+
+.doctor-search-card h3 {
+    margin: 0 0 9px;
+    font-size: 14px;
+}
+
+.doctor-search-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 140px auto;
+    gap: 8px;
+}
+
+.doctor-search-row input,
+.doctor-search-row select,
+.booking-card input,
+.booking-card select {
+    min-width: 0;
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #d4e2df;
+    border-radius: 9px;
+    background: #fff;
+    color: #18373b;
+    font-size: 13px;
+    outline-color: #08766f;
+}
+
+.doctor-search-row .btn {
+    white-space: nowrap;
+    padding: 10px 14px;
+    border-radius: 9px;
+}
+
+.department-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 12px;
+}
+
+.department-tag {
+    background: #e4f2ef;
+    color: #18373b;
+    border: 0;
+    border-radius: 20px;
+    padding: 7px 11px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.department-tag:hover {
+    background: #cde8e2;
+}
+
+.track-link {
+    color: #587075;
+    font-size: 12px;
+    margin-top: 17px;
+}
+
+.track-link a {
+    font-weight: 700;
+}
+
+.booking-card {
+    padding: 23px;
+}
+
+.booking-card h2 {
+    margin: 0 0 3px;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+}
+
+.booking-subtitle {
+    margin: 0 0 16px;
+    color: #587075;
+    font-size: 12px;
+}
+
+.booking-card form > label,
+.form-two-columns label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.booking-card form > input,
+.booking-card form > select {
+    margin-bottom: 11px;
+}
+
+.form-two-columns {
+    display: grid;
+    grid-template-columns: 0.65fr 1fr;
+    gap: 10px;
+    margin-bottom: 11px;
+}
+
+.form-two-columns input {
+    margin-top: 5px;
+}
+
+.booking-submit {
+    width: 100%;
+    min-height: 42px;
+    margin-top: 0;
+}
+
+.booking-footnote {
+    color: #587075;
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.5;
+    margin: 11px 0 0;
+}
+
+.booking-notice {
+    color: #08766f;
+    background: #e4f2ef;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.schedule-section {
+    max-width: 1100px;
+    padding: 50px 0 52px;
+    margin: 0 auto;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.section-heading h2 {
+    font-size: 27px;
+    margin: 0 0 4px;
+    letter-spacing: -0.7px;
+}
+
+.section-heading p {
+    margin: 0;
+    color: #587075;
+    font-size: 13px;
+}
+
+.section-heading > a {
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.doctor-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.doctor-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: #f5f9f8;
+    border: 1px solid #dfebe8;
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.doctor-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.doctor-avatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e2f2ef;
+    color: #08766f;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.doctor-info h3 {
+    font-size: 13px;
+    margin: 0 0 2px;
+}
+
+.doctor-info p {
+    color: #587075;
+    font-size: 12px;
+    margin: 0;
+}
+
+.doctor-hours {
+    color: #587075;
+    font-size: 11px;
+    line-height: 1.6;
+    margin: 13px 0 9px;
+}
+
+.availability {
+    display: inline-flex;
+    align-self: flex-start;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.is-available {
+    background: #d9f3e2;
+    color: #176239;
+}
+
+.is-unavailable {
+    background: #e9eeee;
+    color: #465558;
+}
+
+.doctor-book-btn {
+    width: 100%;
+    border-color: #08766f;
+    color: #08766f;
+    background: transparent;
+    margin-top: auto;
+}
+
+.doctor-book-btn:hover {
+    background: #e2f2ef;
+}
+
+.home-footer {
+    background: #102d30;
+    color: #fff;
+    padding: 42px max(24px, calc((100% - 1100px) / 2)) 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr 1fr;
+    gap: 38px;
+    padding-bottom: 28px;
+}
+
+.footer-brand {
+    font-size: 17px;
+    margin-bottom: 12px;
+}
+
+.footer-brand .brand-icon {
+    width: 26px;
+    height: 26px;
+    font-size: 24px;
+}
+
+.footer-grid h3 {
+    font-size: 13px;
+    margin: 5px 0 13px;
+}
+
+.footer-grid p {
+    color: #c3d4d2;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 3px 0;
+}
+
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.social-links a {
+    border: 1px solid #38575a;
+    border-radius: 22px;
+    padding: 9px 12px;
+    font-size: 11px;
+}
+
+.social-links a:hover {
+    background: #20474a;
+}
+
+.footer-bottom {
+    border-top: 1px solid #29484b;
+    padding-top: 17px;
+    color: #c3d4d2;
+    font-size: 11px;
+}
+
+@media (max-width: 1150px) {
+    .home-header-inner,
+    .hero-inner,
+    .schedule-section {
+        width: calc(100% - 48px);
+    }
+
+    .hero-inner {
+        gap: 25px;
+    }
+
+    .doctor-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    .home-header-inner {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 12px 0;
+    }
+
+    .home-brand {
+        font-size: 18px;
+    }
+
+    .home-nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        padding: 8px 0 2px;
+    }
+
+    .home-header-actions {
+        gap: 7px;
+    }
+
+    .home-header-actions .btn {
+        padding: 9px 11px;
+        font-size: 11px;
+    }
+
+    .hero-section {
+        padding: 32px 0 40px;
+    }
+
+    .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .hero-left h1 {
+        font-size: clamp(36px, 9vw, 48px);
+    }
+
+    .doctor-search-row {
+        grid-template-columns: 1fr;
+    }
+
+    .doctor-search-row .btn {
+        min-height: 40px;
+    }
+
+    .booking-card {
+        padding: 20px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .section-heading h2 {
+        font-size: 24px;
+    }
+
+    .doctor-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 26px;
+    }
+}
+
+@media (max-width: 420px) {
+    .home-header-inner,
+    .hero-inner,
+    .schedule-section {
+        width: calc(100% - 30px);
+    }
+
+    .home-header-actions .btn {
+        padding: 8px;
+    }
+
+    .form-two-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Patient Login Card */
+
+.patient-login-card {
+    width: 100%;
+    max-width: 760px;
+    box-sizing: border-box;
+    padding: 28px 42px;
+    align-self: center;
+}
+
+.patient-login-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.patient-login-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #087d73;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.patient-login-heading h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.patient-login-heading p {
+    color: #607078;
+    line-height: 1.5;
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.patient-login-card form {
+    display: flex;
+    flex-direction: column;
+}
+
+.patient-login-card input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 15px;
+    margin: 6px 0 12px;
+    border: 1px solid #cbdedb;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.patient-login-card input:focus {
+    outline: 2px solid #087d73;
+    outline-offset: 1px;
+}
+
+.patient-login-card .booking-submit {
+    margin-top: 4px;
+}
+
+.patient-login-card button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.patient-login-error {
+    color: #c62828;
+    margin: 0 0 12px;
+}
+
+.patient-register-option {
+    text-align: center;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid #e2ecea;
+}
+
+.patient-register-option p {
+    margin-bottom: 12px;
+    color: #52636a;
+}
+
+.patient-register-option .btn {
+    display: inline-flex;
+    justify-content: center;
+    text-decoration: none;
+}

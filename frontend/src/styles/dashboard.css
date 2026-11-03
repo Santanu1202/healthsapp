@@ -1,0 +1,240 @@
+
+.patient-dashboard {
+    min-height: 100vh;
+    background: #f3f8f7;
+    color: #173638;
+    font-family: Arial, sans-serif;
+}
+
+.dashboard-navbar {
+    min-height: 76px;
+    padding: 0 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: #ffffff;
+    border-bottom: 1px solid #dceae7;
+}
+
+.dashboard-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #087d73;
+    font-size: 25px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.dashboard-brand-icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: #087d73;
+    color: #ffffff;
+    font-size: 30px;
+}
+
+.dashboard-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.dashboard-portal-label {
+    color: #607875;
+    font-size: 14px;
+}
+
+.dashboard-logout {
+    padding: 10px 18px;
+    border: 1px solid #087d73;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #087d73;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.dashboard-logout:hover {
+    background: #e7f4f1;
+}
+
+.dashboard-content {
+    width: 88%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 42px 0 24px;
+}
+
+.dashboard-welcome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 34px 38px;
+    border-radius: 18px;
+    background: #e0f2ef;
+}
+
+.dashboard-eyebrow {
+    margin: 0 0 10px;
+    color: #087d73;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.dashboard-welcome h1 {
+    margin: 0;
+    color: #153c3b;
+    font-size: clamp(27px, 3vw, 36px);
+}
+
+.dashboard-welcome-text {
+    max-width: 570px;
+    margin: 12px 0 0;
+    color: #536e6b;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.dashboard-welcome-icon {
+    width: 94px;
+    height: 94px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 24px;
+    background: #ffffff;
+    font-size: 45px;
+}
+
+.dashboard-section {
+    margin-top: 38px;
+}
+
+.dashboard-section-heading h2 {
+    margin: 0;
+    color: #173638;
+    font-size: 25px;
+}
+
+.dashboard-section-heading p {
+    margin: 8px 0 22px;
+    color: #6a807d;
+    line-height: 1.5;
+}
+
+.patient-action-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.patient-action-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    padding: 26px;
+    border: 1px solid #deebe8;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 4px 18px rgba(24, 67, 62, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.patient-action-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 25px rgba(24, 67, 62, 0.09);
+}
+
+.patient-action-icon {
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    background: #e0f2ef;
+    font-size: 27px;
+}
+
+.patient-action-card h3 {
+    margin: 20px 0 8px;
+    color: #173638;
+    font-size: 20px;
+}
+
+.patient-action-card p {
+    margin: 0 0 22px;
+    color: #667b78;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.patient-action-link {
+    margin-top: auto;
+    color: #087d73;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.patient-action-link:hover {
+    text-decoration: underline;
+}
+
+.dashboard-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 42px;
+    padding-top: 20px;
+    border-top: 1px solid #dceae7;
+    color: #748884;
+    font-size: 13px;
+}
+
+@media (max-width: 650px) {
+    .dashboard-navbar {
+        padding: 14px 5%;
+    }
+
+    .dashboard-brand {
+        font-size: 21px;
+    }
+
+    .dashboard-portal-label {
+        display: none;
+    }
+
+    .dashboard-content {
+        width: 90%;
+        padding-top: 25px;
+    }
+
+    .dashboard-welcome {
+        padding: 25px 22px;
+    }
+
+    .dashboard-welcome-icon {
+        display: none;
+    }
+
+    .patient-action-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .patient-action-card {
+        padding: 22px;
+    }
+
+    .dashboard-footer {
+        flex-direction: column;
+    }
+}

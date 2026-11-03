@@ -1,0 +1,227 @@
+
+.register-doctor-page {
+    min-height: 100vh;
+    box-sizing:border-box;
+    background: #f3f8f8;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: Arial, sans-serif;
+    overflow:auto;
+}
+
+.doctor-form-card {
+    width: 100%;
+    max-width: 900px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px 35px;
+    box-shadow: 0 5px 25px rgba(0, 70, 70, 0.08);
+}
+
+.doctor-form-header {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 15px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #e5eeee;
+}
+
+.doctor-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #e2f5f3;
+    color: #008b83;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.doctor-form-header h2 {
+    color: #173f42;
+    font-size: 25px;
+    margin: 0 0 7px;
+    font-family: 'Poppins' , sans-serif;
+}
+
+.doctor-form-header p {
+    color: #718486;
+    font-size: 14px;
+    margin: 0;
+}
+
+.doctor-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px 25px;
+}
+
+.doctor-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.doctor-form-group label {
+    color: #294b4e;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.required-star {
+    color: #e05252;
+    margin-left: 4px;
+}
+
+.doctor-form-group input {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 0 14px;
+    border: 1px solid #d5e2e2;
+    border-radius: 7px;
+    outline: none;
+    font-size: 14px;
+    color: #263f41;
+    background: #ffffff;
+    transition: 0.2s ease;
+}
+
+.doctor-form-group input::placeholder {
+    color: #a1b0b1;
+}
+
+.doctor-form-group input:focus {
+    border-color: #009b91;
+    box-shadow: 0 0 0 3px rgba(0, 155, 145, 0.10);
+}
+.field-error {
+    display: block;
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.doctor-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e5eeee;
+}
+
+.doctor-back-button,
+.doctor-submit-button {
+    min-height: 45px;
+    padding: 0 22px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.doctor-back-button {
+    background: #ffffff;
+    border: 1px solid #cbdada;
+    color: #456164;
+}
+
+.doctor-back-button:hover {
+    background: #f1f6f6;
+}
+
+.doctor-submit-button {
+    background: #008f87;
+    border: 1px solid #008f87;
+    color: #ffffff;
+}
+
+.doctor-submit-button:hover {
+    background: #00766f;
+}
+
+.doctor-submit-button:disabled,
+.doctor-back-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.success-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+    background: #e8f7f1;
+    border: 1px solid #a8dfc5;
+    border-radius: 8px;
+    color: #18794e;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.success-message span {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@media (max-width: 650px) {
+    .register-doctor-page {
+        padding: 20px 12px;
+    }
+
+    .doctor-form-card {
+        padding: 25px 18px;
+    }
+
+    .doctor-form-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .doctor-form-header h2 {
+        font-size: 21px;
+    }
+
+    .doctor-form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .doctor-back-button,
+    .doctor-submit-button {
+        width: 100%;
+    }
+}
+.field-error {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 2px;
+    display: block;
+}
+
+.doctor-form-group input:invalid {
+    box-shadow: none;
+}
+html,
+body,
+#root {
+    min-height: 100%;
+}
+
+body {
+    overflow-y: auto;
+}
+
+.register-doctor-page {
+    overflow-x: hidden;
+}

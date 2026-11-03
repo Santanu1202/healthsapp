@@ -1,0 +1,192 @@
+
+/* =================================
+   DOCTOR LOGIN PAGE
+================================= */
+
+.doctor-login-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f1f8f7;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* =================================
+   LOGIN CARD
+================================= */
+
+.doctor-login-card {
+    width: 100%;
+    max-width: 520px;
+    background: #ffffff;
+    padding: 40px 38px;
+    border-radius: 24px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+}
+
+/* =================================
+   HEADER
+================================= */
+
+.doctor-login-header {
+    text-align: center;
+    margin-bottom: 42px;
+}
+
+.doctor-login-header h2 {
+    font-size: 42px;
+    font-weight: 700;
+    color: #073b43;
+    margin: 0 0 8px;
+}
+
+.doctor-login-header p {
+    font-size: 20px;
+    font-weight: 400;
+    color: #123b42;
+    margin: 0;
+}
+
+/* =================================
+   INPUT FIELDS
+================================= */
+
+.doctor-login-form-group {
+    margin-bottom: 20px;
+}
+
+.doctor-login-form-group input {
+    width: 100%;
+    height: 60px;
+    padding: 0 18px;
+    font-size: 17px;
+    color: #111827;
+    background: #e8f0fe;
+    border: 1px solid #d1dce8;
+    border-radius: 13px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.doctor-login-form-group input::placeholder {
+    color: #667085;
+    opacity: 1;
+}
+
+.doctor-login-form-group input:focus {
+    border-color: #078579;
+    box-shadow: 0 0 0 3px rgba(7, 133, 121, 0.12);
+}
+
+.doctor-login-form-group input:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* =================================
+   LOGIN BUTTON
+================================= */
+
+.doctor-login-button {
+    width: 100%;
+    height: 60px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 13px;
+    background: #078579;
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease,
+                transform 0.2s ease;
+}
+
+.doctor-login-button:hover {
+    background: #066e65;
+}
+
+.doctor-login-button:active {
+    transform: scale(0.99);
+}
+
+.doctor-login-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* =================================
+   ERROR MESSAGE
+================================= */
+
+.doctor-login-error {
+    color: #dc2626;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 9px;
+    padding: 12px;
+    margin-bottom: 14px;
+    font-size: 14px;
+}
+
+/* =================================
+   BACK TO HOME BUTTON
+================================= */
+
+.doctor-back-button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 9px 18px;
+    border: none;
+    background: transparent;
+    color: #078579;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.doctor-back-button:hover {
+    color: #055c55;
+    text-decoration: underline;
+}
+
+/* =================================
+   RESPONSIVE DESIGN
+================================= */
+
+@media (max-width: 600px) {
+
+    .doctor-login-card {
+        padding: 32px 22px;
+        border-radius: 20px;
+    }
+
+    .doctor-login-header {
+        margin-bottom: 32px;
+    }
+
+    .doctor-login-header h2 {
+        font-size: 34px;
+    }
+
+    .doctor-login-header p {
+        font-size: 17px;
+    }
+
+    .doctor-login-form-group input {
+        height: 55px;
+        font-size: 16px;
+    }
+
+    .doctor-login-button {
+        height: 55px;
+        font-size: 17px;
+    }
+}
