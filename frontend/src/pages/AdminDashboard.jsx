@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 function AdminDashboard() {
+    const [recentAppointments, setRecentAppointments] = useState([]);
     const navigate = useNavigate();
     const [stats, setStats] = useState({
     total_bookings: 0,
@@ -11,12 +12,14 @@ function AdminDashboard() {
 });
 
 const [loading, setLoading] = useState(true);
+const [patientId, setPatientId] = useState("");
 
 useEffect(() => {
     const fetchDashboardStats = async () => {
         try {
             const response = await api.get("admin-dashboard-stats/");
             setStats(response.data);
+            setRecentAppointments(response.data.recent_appointments || []);
         } catch (error) {
             console.error("Failed to load dashboard statistics:", error);
         } finally {
@@ -87,28 +90,91 @@ useEffect(() => {
                 <h2 style={styles.heading}>Quick Actions</h2>
 
                 <section style={styles.actions}>
-                    <button
-                        style={styles.actionButton}
-                        onClick={() => navigate("/register-doctor")}
-                    >
-                        + Register Doctor
-                    </button>
+    <button
+        style={styles.actionButton}
+        onClick={() => navigate("/register-doctor")}
+    >
+        + Register Doctor
+    </button>
 
-                    <button
-                        style={styles.actionButton}
-                        onClick={() => navigate("/admin-patients")}
-                    >
-                        Search Patient by ID
-                    </button>
-                </section>
+    <form
+        style={styles.searchForm}
+       onSubmit={async (e) => {
+            e.preventDefault();
+
+            try {
+                 if (!patientId.trim()) {
+                     const response = await api.get("admin-dashboard-stats/");
+                    setRecentAppointments(response.data.recent_appointments || []);
+                    return;
+                }
+
+                const response = await api.get(
+                    `admin-dashboard-stats/?patient_id=${encodeURIComponent(patientId.trim())}`
+                );
+
+                setRecentAppointments(response.data.recent_appointments || []);
+            } catch (error) {
+            console.error("Patient search failed:", error);
+
+            setRecentAppointments([]);
+
+            alert(
+            error.response?.data?.error ||
+            "Unable to search patient. Please try again."
+            );
+        }
+    }}>
+        <input
+            type="text"
+            placeholder="Enter Patient ID (e.g. HP09)"
+            value={patientId}
+            onChange={(e) => setPatientId(e.target.value)}
+            style={styles.searchInput}
+        />
+        <button type="submit" style={styles.searchButton}>
+            Search
+        </button>
+    </form>
+ </section>
 
                 <section style={styles.panel}>
-                    <h3>Recent Appointments</h3>
-                    <p style={styles.description}>
-                        Appointment records will appear here after we connect
-                        the dashboard to your backend.
-                    </p>
-                </section>
+    <h3>Recent Appointments</h3>
+
+    {recentAppointments.length === 0 ? (
+        <p style={styles.description}>
+            No appointments found.
+        </p>
+    ) : (
+        <div style={{ overflowX: "auto" }}>
+            <table style={styles.table}>
+                <thead>
+                    <tr>
+                        <th style={styles.th}>Patient ID</th>
+                        <th style={styles.th}>Patient Name</th>
+                        <th style={styles.th}>Doctor Name</th>
+                        <th style={styles.th}>Date</th>
+                        <th style={styles.th}>Time</th>
+                        <th style={styles.th}>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {recentAppointments.map((appointment) => (
+                        <tr key={appointment.id}>
+                            <td style={styles.td}>{appointment.patient_id}</td>
+                            <td style={styles.td}>{appointment.patient_name}</td>
+                            <td style={styles.td}>{appointment.doctor_name}</td>
+                            <td style={styles.td}>{appointment.appointment_date}</td>
+                            <td style={styles.td}>{appointment.time_slot}</td>
+                            <td style={styles.td}>{appointment.status}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    )}
+</section>
             </main>
         </div>
     );
@@ -215,6 +281,54 @@ const styles = {
         borderRadius: "14px",
         border: "1px solid #E0ECE9",
     },
+    table: {
+    width: "100%",
+    borderCollapse: "collapse",
+    marginTop: "15px",
+},
+
+th: {
+    textAlign: "left",
+    padding: "14px 12px",
+    color: "#075b55",
+    backgroundColor: "#f0f8f7",
+    fontSize: "15px",
+    borderBottom: "1px solid #dcebea",
+    whiteSpace: "nowrap",
+},
+
+td: {
+    padding: "15px 12px",
+    borderBottom: "1px solid #e5eeee",
+    fontSize: "14px",
+    color: "#31545a",
+    whiteSpace: "nowrap",
+},
+searchForm: {
+    display: "flex",
+    gap: "10px",
+    alignItems: "center",
+},
+
+searchInput: {
+    padding: "14px",
+    border: "1px solid #d5e5e2",
+    borderRadius: "10px",
+    fontSize: "15px",
+    outline: "none",
+    width: "240px",
+},
+
+searchButton: {
+    backgroundColor: "#087f75",
+    color: "#ffffff",
+    border: "none",
+    borderRadius: "10px",
+    padding: "14px 24px",
+    cursor: "pointer",
+    fontSize: "16px",
+},
+
 };
 
 export default AdminDashboard;

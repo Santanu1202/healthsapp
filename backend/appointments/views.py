@@ -593,10 +593,153 @@ def doctor_dashboard_appointments(request):
         },
         status=status.HTTP_200_OK
     )
+
 @api_view(["GET"])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def admin_dashboard_stats(request):
+
+    # Allow only Admin JWT tokens
+    if not request.user.is_staff or request.auth.get("role") != "admin":
+        return Response(
+            {"error": "Access denied. Admin only."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
+
+    # Dashboard statistics
+    total_bookings = Appointment.objects.count()
+    total_patients = Patient.objects.count()
+    total_doctors = Doctor.objects.count()
+
+    total_departments = (
+        Doctor.objects
+        .exclude(department="")
+        .values("department")
+        .distinct()
+        .count()
+    )
+
+    # Check whether a Patient ID was provided
+    patient_id = request.query_params.get("patient_id", "").strip()
+
+    # If Patient ID is provided, search for that patient
+    if patient_id:
+        try:
+            patient = Patient.objects.get(patient_id__iexact=patient_id)
+        except Patient.DoesNotExist:
+            return Response(
+                {"error": "Patient not found. Please check the Patient ID."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        appointments = Appointment.objects.filter(
+            patient=patient
+        ).select_related(
+            "patient", "doctor"
+        ).order_by("-created_at")
+
+        appointment_data = []
+
+        for appointment in appointments:
+            appointment_data.append({
+                "id": appointment.id,
+                "booking_code": appointment.booking_code,
+                "patient_name": appointment.patient.name,
+                "patient_id": appointment.patient.patient_id,
+                "doctor_name": appointment.doctor.name,
+                "doctor_id": appointment.doctor.doctor_id,
+                "appointment_date": appointment.appointment_date,
+                "time_slot": appointment.time_slot,
+                "status": appointment.status,
+            })
+
+        return Response({
+            "patient": {
+                "patient_id": patient.patient_id,
+                "name": patient.name,
+                "phone_number": patient.phone_number,
+                "address": patient.address,
+                "age": patient.age,
+                "gender": patient.gender,
+            },
+            "recent_appointments": appointment_data,
+        }, status=status.HTTP_200_OK)
+
+    # Normal dashboard: Fetch latest 5 appointments
+    recent_appointments = Appointment.objects.select_related(
+        "patient", "doctor"
+    ).order_by("-created_at")[:5]
+
+    recent_data = []
+
+    for appointment in recent_appointments:
+        recent_data.append({
+            "id": appointment.id,
+            "booking_code": appointment.booking_code,
+            "patient_name": appointment.patient.name,
+            "patient_id": appointment.patient.patient_id,
+            "doctor_name": appointment.doctor.name,
+            "doctor_id": appointment.doctor.doctor_id,
+            "appointment_date": appointment.appointment_date,
+            "time_slot": appointment.time_slot,
+            "status": appointment.status,
+        })
+
+    return Response({
+        "total_bookings": total_bookings,
+        "total_patients": total_patients,
+        "total_doctors": total_doctors,
+        "total_departments": total_departments,
+        "recent_appointments": recent_data,
+    }, status=status.HTTP_200_OK)
+
+
+    # Allow only Admin JWT tokens
+    if not request.user.is_staff or request.auth.get("role") != "admin":
+        return Response(
+            {"error": "Access denied. Admin only."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
+
+    total_bookings = Appointment.objects.count()
+    total_patients = Patient.objects.count()
+    total_doctors = Doctor.objects.count()
+
+    total_departments = (
+        Doctor.objects
+        .exclude(department="")
+        .values("department")
+        .distinct()
+        .count()
+    )
+
+    # Fetch latest 5 appointments
+    recent_appointments = Appointment.objects.select_related(
+        "patient", "doctor"
+    ).order_by("-created_at")[:5]
+
+    recent_data = []
+
+    for appointment in recent_appointments:
+        recent_data.append({
+            "id": appointment.id,
+            "booking_code": appointment.booking_code,
+            "patient_name": appointment.patient.name,
+            "patient_id": appointment.patient.patient_id,
+            "doctor_name": appointment.doctor.name,
+            "doctor_id": appointment.doctor.doctor_id,
+            "appointment_date": appointment.appointment_date,
+            "time_slot": appointment.time_slot,
+            "status": appointment.status,
+        })
+
+    return Response({
+        "total_bookings": total_bookings,
+        "total_patients": total_patients,
+        "total_doctors": total_doctors,
+        "total_departments": total_departments,
+        "recent_appointments": recent_data,
+    }, status=status.HTTP_200_OK)
 
     # Allow only Admin JWT tokens
     if not request.user.is_staff or request.auth.get("role") != "admin":
@@ -622,4 +765,5 @@ def admin_dashboard_stats(request):
         "total_patients": total_patients,
         "total_doctors": total_doctors,
         "total_departments": total_departments,
+        "recent_appointments": recent_data,
     }, status=status.HTTP_200_OK)

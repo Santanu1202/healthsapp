@@ -16,7 +16,7 @@ let refreshPromise = null;
 
 api.interceptors.request.use(
     (config) => {
-        const url = config.url?.replace(/^\/+/, "");
+        const url = config.url?.split("?")[0].split("#")[0].replace(/^\/+/, "");
 
         config.headers = config.headers || {};
 
