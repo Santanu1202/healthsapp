@@ -11,6 +11,7 @@ from .views import (
     total_appointments,
     doctor_dashboard_appointments,
     admin_dashboard_stats,
+    track_booking,
 )
 
 urlpatterns = [
@@ -59,4 +60,9 @@ urlpatterns = [
         admin_dashboard_stats,
         name="admin-dashboard-stats"
     ),
+    path(
+        "track-booking/",
+        track_booking,
+        name="track-booking"
+    )
 ]

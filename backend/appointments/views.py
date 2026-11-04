@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes,authentication_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from accounts.models import Patient
@@ -594,10 +594,92 @@ def doctor_dashboard_appointments(request):
         status=status.HTTP_200_OK
     )
 
+
 @api_view(["GET"])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def admin_dashboard_stats(request):
+
+    # Allow only Admin JWT tokens
+    if not request.user.is_staff or request.auth.get("role") != "admin":
+        return Response(
+            {"error": "Access denied. Admin only."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
+
+    # Dashboard statistics
+    total_bookings = Appointment.objects.count()
+    total_patients = Patient.objects.count()
+    total_doctors = Doctor.objects.count()
+
+    total_departments = (
+        Doctor.objects
+        .exclude(department="")
+        .values("department")
+        .distinct()
+        .count()
+    )
+
+    # Check whether a Booking ID was provided
+    booking_code = request.query_params.get("booking_id", "").strip()
+
+    # Search for a specific booking
+    if booking_code:
+        try:
+            appointment = Appointment.objects.select_related(
+                "patient", "doctor"
+            ).get(booking_code__iexact=booking_code)
+
+        except Appointment.DoesNotExist:
+            return Response(
+                {"error": "Booking ID not found. Please check the ID."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        appointment_data = [{
+            "id": appointment.id,
+            "booking_code": appointment.booking_code,
+            "patient_name": appointment.patient.name,
+            "patient_id": appointment.patient.patient_id,
+            "doctor_name": appointment.doctor.name,
+            "doctor_id": appointment.doctor.doctor_id,
+            "appointment_date": appointment.appointment_date,
+            "time_slot": appointment.time_slot,
+            "status": appointment.status,
+        }]
+
+        return Response({
+            "recent_appointments": appointment_data,
+        }, status=status.HTTP_200_OK)
+
+    # Normal dashboard: Fetch latest 5 appointments
+    recent_appointments = Appointment.objects.select_related(
+        "patient", "doctor"
+    ).order_by("-created_at")[:5]
+
+    recent_data = []
+
+    for appointment in recent_appointments:
+        recent_data.append({
+            "id": appointment.id,
+            "booking_code": appointment.booking_code,
+            "patient_name": appointment.patient.name,
+            "patient_id": appointment.patient.patient_id,
+            "doctor_name": appointment.doctor.name,
+            "doctor_id": appointment.doctor.doctor_id,
+            "appointment_date": appointment.appointment_date,
+            "time_slot": appointment.time_slot,
+            "status": appointment.status,
+        })
+
+    return Response({
+        "total_bookings": total_bookings,
+        "total_patients": total_patients,
+        "total_doctors": total_doctors,
+        "total_departments": total_departments,
+        "recent_appointments": recent_data,
+    }, status=status.HTTP_200_OK)
+
 
     # Allow only Admin JWT tokens
     if not request.user.is_staff or request.auth.get("role") != "admin":
@@ -767,3 +849,46 @@ def admin_dashboard_stats(request):
         "total_departments": total_departments,
         "recent_appointments": recent_data,
     }, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+@authentication_classes([])
+@permission_classes([AllowAny])
+def track_booking(request):
+
+    # Get Booking ID from the request
+    booking_id = request.query_params.get("booking_id", "").strip()
+
+    # Validate empty input
+    if not booking_id:
+        return Response(
+            {"error": "Please provide Booking ID."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    # Find the matching appointment
+    appointment = Appointment.objects.select_related(
+        "patient", "doctor"
+    ).filter(
+        booking_code__iexact=booking_id
+    ).order_by("-created_at").first()
+
+    # Booking ID not found
+    if not appointment:
+        return Response(
+            {"error": "Booking ID not found. Please check your Booking ID."},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+    # Return appointment details (view only)
+    return Response(
+        {
+            "booking_code": appointment.booking_code,
+            "patient_name": appointment.patient.name,
+            "doctor_name": appointment.doctor.name,
+            "appointment_date": appointment.appointment_date,
+            "time_slot": appointment.time_slot,
+            "status": appointment.status,
+            "symptoms": appointment.symptoms,
+        },
+        status=status.HTTP_200_OK,
+    )

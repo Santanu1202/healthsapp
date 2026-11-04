@@ -50,7 +50,12 @@ function Home() {
     const [search, setSearch] = useState("");
     const [filterDepartment, setFilterDepartment] = useState("All departments");
     const [notice, setNotice] = useState("");
-
+    // Public booking tracking states
+    const [trackingOpen, setTrackingOpen] = useState(false);
+    const [bookingId, setBookingId] = useState("");
+    const [trackedAppointment, setTrackedAppointment] = useState(null);
+    const [trackingError, setTrackingError] = useState("");
+    const [trackingLoading, setTrackingLoading] = useState(false);  
     const today = new Date();
     const dateString = (value) => {
         const y = value.getFullYear();
@@ -99,6 +104,35 @@ function Home() {
         );
     } finally {
         setLoginLoading(false);
+    }
+};
+     const handleTrackBooking = async (event) => {
+    event.preventDefault();
+
+    setTrackedAppointment(null);
+    setTrackingError("");
+
+    if (!bookingId.trim()) {
+        setTrackingError("Please provide Booking ID.");
+        return;
+    }
+
+    try {
+        setTrackingLoading(true);
+
+        const response = await api.get(
+            `track-booking/?booking_id=${encodeURIComponent(bookingId.trim())}`
+        );
+
+        setTrackedAppointment(response.data);
+
+    } catch (error) {
+        setTrackingError(
+            error.response?.data?.error ||
+            "Unable to find booking. Please try again."
+        );
+    } finally {
+        setTrackingLoading(false);
     }
 };
 
@@ -212,12 +246,58 @@ function Home() {
                                 </div>
                             </div>
 
-                            <p className="track-link">
-                                Already booked?{" "}
-                                <Link to="/patient-appointments">
-                                    Track your booking →
-                                </Link>
-                            </p>
+                            <div className="track-link">
+    <p>
+        Already booked?{" "}
+        <button
+            type="button"
+            onClick={() => {
+                setTrackingOpen(!trackingOpen);
+                setTrackingError("");
+                setTrackedAppointment(null);
+            }}
+        >
+            Track your booking →
+        </button>
+    </p>
+
+    {trackingOpen && (
+        <div className="booking-tracking-box">
+            <form onSubmit={handleTrackBooking}>
+                <input
+                    type="text"
+                    placeholder="Enter your Booking ID (e.g. HB0104)"
+                    value={bookingId}
+                    onChange={(event) => setBookingId(event.target.value)}
+                />
+
+                <button type="submit" disabled={trackingLoading}>
+                    {trackingLoading ? "Searching..." : "Track Booking"}
+                </button>
+            </form>
+
+            {trackingError && (
+                <p className="tracking-error" role="alert">
+                    {trackingError}
+                </p>
+            )}
+
+            {trackedAppointment && (
+                <div className="tracking-result">
+                    <h3>Appointment Details</h3>
+
+                    <p><strong>Booking ID:</strong> {trackedAppointment.booking_code}</p>
+                    <p><strong>Patient Name:</strong> {trackedAppointment.patient_name}</p>
+                    <p><strong>Doctor:</strong> {trackedAppointment.doctor_name}</p>
+                    <p><strong>Date:</strong> {trackedAppointment.appointment_date}</p>
+                    <p><strong>Time:</strong> {trackedAppointment.time_slot}</p>
+                    <p><strong>Status:</strong> {trackedAppointment.status}</p>
+                    <p><strong>Symptoms:</strong> {trackedAppointment.symptoms}</p>
+                </div>
+            )}
+        </div>
+    )}
+</div>
                         </div>
 
                         

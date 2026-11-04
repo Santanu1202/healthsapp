@@ -718,3 +718,126 @@ a {
     justify-content: center;
     text-decoration: none;
 }
+
+/* ==============================
+   HOME PAGE BOOKING TRACKING
+================================ */
+
+.track-link {
+    margin-top: 20px;
+}
+
+.track-link > p {
+    color: #64748b;
+    font-size: 15px;
+}
+
+.track-link > p button {
+    background: transparent;
+    border: none;
+    color: #087f8c;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+}
+
+.track-link > p button:hover {
+    color: #075f68;
+    text-decoration: underline;
+}
+
+.booking-tracking-box {
+    background: #ffffff;
+    border: 1px solid #dcebe8;
+    border-radius: 14px;
+    padding: 22px;
+    margin-top: 15px;
+    max-width: 650px;
+    box-shadow: 0 8px 25px rgba(15, 50, 50, 0.06);
+}
+
+.booking-tracking-box form {
+    display: flex;
+    gap: 12px;
+}
+
+.booking-tracking-box input {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 15px;
+    border: 1px solid #cbdedb;
+    border-radius: 9px;
+    font-size: 15px;
+    outline: none;
+}
+
+.booking-tracking-box input:focus {
+    border-color: #087f8c;
+    box-shadow: 0 0 0 3px rgba(8, 127, 140, 0.10);
+}
+
+.booking-tracking-box form button {
+    background: #087f8c;
+    color: #ffffff;
+    border: none;
+    border-radius: 9px;
+    padding: 13px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.booking-tracking-box form button:hover {
+    background: #066b75;
+}
+
+.booking-tracking-box form button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.tracking-error {
+    color: #dc2626;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.tracking-result {
+    margin-top: 22px;
+    padding: 20px;
+    background: #f7fbfa;
+    border: 1px solid #dcebe8;
+    border-radius: 12px;
+}
+
+.tracking-result h3 {
+    color: #087f8c;
+    font-size: 19px;
+    margin: 0 0 16px;
+}
+
+.tracking-result p {
+    color: #475569;
+    font-size: 14px;
+    margin: 11px 0;
+    line-height: 1.5;
+}
+
+.tracking-result strong {
+    color: #163b3d;
+}
+
+@media (max-width: 600px) {
+    .booking-tracking-box {
+        padding: 15px;
+    }
+
+    .booking-tracking-box form {
+        flex-direction: column;
+    }
+
+    .booking-tracking-box form button {
+        width: 100%;
+    }
+}

@@ -15,6 +15,7 @@ import RegisterDoctor from "./pages/RegisterDoctor";
 import DoctorLogin from "./pages/DoctorLogin";
 import DoctorDashboard from "./pages/DoctorDashboard";
 
+
 function App() {
     return (
         <Routes>

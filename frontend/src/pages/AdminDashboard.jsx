@@ -12,7 +12,7 @@ function AdminDashboard() {
 });
 
 const [loading, setLoading] = useState(true);
-const [patientId, setPatientId] = useState("");
+const [bookingId, setBookingId] = useState("");
 
 useEffect(() => {
     const fetchDashboardStats = async () => {
@@ -97,45 +97,54 @@ useEffect(() => {
         + Register Doctor
     </button>
 
-    <form
-        style={styles.searchForm}
-       onSubmit={async (e) => {
-            e.preventDefault();
+    
+<form
+    style={styles.searchForm}
+    onSubmit={async (e) => {
+        e.preventDefault();
 
-            try {
-                 if (!patientId.trim()) {
-                     const response = await api.get("admin-dashboard-stats/");
-                    setRecentAppointments(response.data.recent_appointments || []);
-                    return;
-                }
-
-                const response = await api.get(
-                    `admin-dashboard-stats/?patient_id=${encodeURIComponent(patientId.trim())}`
+        try {
+            if (!bookingId.trim()) {
+                const response = await api.get("admin-dashboard-stats/");
+                setRecentAppointments(
+                    response.data.recent_appointments || []
                 );
+                return;
+            }
 
-                setRecentAppointments(response.data.recent_appointments || []);
-            } catch (error) {
-            console.error("Patient search failed:", error);
+            const response = await api.get(
+                `admin-dashboard-stats/?booking_id=${encodeURIComponent(bookingId.trim())}`
+            );
+
+            setRecentAppointments(
+                response.data.recent_appointments || []
+            );
+
+        } catch (error) {
+            console.error("Booking search failed:", error);
 
             setRecentAppointments([]);
 
             alert(
-            error.response?.data?.error ||
-            "Unable to search patient. Please try again."
+                error.response?.data?.error ||
+                "Unable to search booking. Please try again."
             );
         }
-    }}>
-        <input
-            type="text"
-            placeholder="Enter Patient ID (e.g. HP09)"
-            value={patientId}
-            onChange={(e) => setPatientId(e.target.value)}
-            style={styles.searchInput}
-        />
-        <button type="submit" style={styles.searchButton}>
-            Search
-        </button>
-    </form>
+    }}
+>
+    <input
+        type="text"
+        placeholder="Enter Booking ID (e.g. HB0104)"
+        value={bookingId}
+        onChange={(e) => setBookingId(e.target.value)}
+        style={styles.searchInput}
+    />
+
+    <button type="submit" style={styles.searchButton}>
+        Search
+    </button>
+</form>
+
  </section>
 
                 <section style={styles.panel}>
