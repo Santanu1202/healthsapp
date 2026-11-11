@@ -14,7 +14,10 @@ import AdminProtectedRoute from "./routes/AdminProtectedRoute";
 import RegisterDoctor from "./pages/RegisterDoctor";
 import DoctorLogin from "./pages/DoctorLogin";
 import DoctorDashboard from "./pages/DoctorDashboard";
-
+import PatientPrescriptions from "./pages/PatientPrescriptions";
+import MedicalHistory from "./pages/MedicalHistory";
+import DoctorPatientDetails from "./pages/DoctorPatientDetails";
+import DoctorCreatePrescription from "./pages/DoctorCreatePrescription";
 
 function App() {
     return (
@@ -44,8 +47,34 @@ function App() {
             <Route path="/doctor-dashboard" element={<DoctorDashboard />}/>
             <Route path="/register" element={<Register />} />
             <Route path="/doctor-appointments" element={<ProtectedRoute><DoctorAppointments /></ProtectedRoute>} />
+            <Route
+                path="/doctor/patient/:patientId/appointment/:appointmentId"
+                element={<DoctorPatientDetails />}
+            />
+            <Route
+    path="/doctor/create-prescription/:patientId/:appointmentId"
+    element={<DoctorCreatePrescription />}
+/>
+            <Route
+    path="/prescriptions"
+    element={
+        <ProtectedRoute>
+            <PatientPrescriptions />
+        </ProtectedRoute>
+    }
+/>
+
+<Route
+    path="/medical-history"
+    element={
+        <ProtectedRoute>
+            <MedicalHistory />
+        </ProtectedRoute>
+    }
+/>
         </Routes>
     );
+    
 }
 
 export default App;

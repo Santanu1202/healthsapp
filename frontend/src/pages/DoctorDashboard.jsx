@@ -175,17 +175,18 @@ function DoctorDashboard() {
                                 <tr key={appointment.id}>
                                     <td>
                                         <button
-                                            className="patient-id-link"
-                                            type="button"
-                                            onClick={() => {
-                                                console.log(
-                                                    "Selected Patient:",
-                                                    appointment.patient_id
-                                                );
-                                            }}
-                                        >
-                                            {appointment.patient_id}
-                                        </button>
+    className="patient-id-link"
+    type="button"
+    onClick={() => {
+        alert("Patient button clicked!");
+
+        navigate(
+            `/doctor/patient/${appointment.patient_id}/appointment/${appointment.id}`
+        );
+    }}
+>
+    {appointment.patient_id}
+</button>
                                     </td>
 
                                     <td>{appointment.patient_name}</td>
@@ -236,11 +237,12 @@ function DoctorDashboard() {
                                             className="patient-id-link"
                                             type="button"
                                             onClick={() => {
-                                                console.log(
-                                                    "Selected Patient:",
-                                                    appointment.patient_id
-                                                );
-                                            }}
+                                                        // console.log("Navigating to patient details...");
+                                                        alert("Patient button clicked!");
+                                                        navigate(
+                                                           `/doctor/patient/${appointment.patient_id}/appointment/${appointment.id}`
+                                                        );
+                                                    }}
                                         >
                                             {appointment.patient_id}
                                         </button>
@@ -291,17 +293,18 @@ function DoctorDashboard() {
                                 <tr key={appointment.id}>
                                     <td>
                                         <button
-                                            className="patient-id-link"
-                                            type="button"
-                                            onClick={() => {
-                                                console.log(
-                                                    "Selected Patient:",
-                                                    appointment.patient_id
-                                                );
-                                            }}
-                                        >
-                                            {appointment.patient_id}
-                                        </button>
+    className="patient-id-link"
+    type="button"
+    onClick={() => {
+        alert("Patient button clicked!");
+
+        navigate(
+            `/doctor/patient/${appointment.patient_id}/appointment/${appointment.id}`
+        );
+    }}
+>
+    {appointment.patient_id}
+</button>
                                     </td>
 
                                     <td>{appointment.patient_name}</td>

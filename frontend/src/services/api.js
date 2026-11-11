@@ -51,7 +51,10 @@ api.interceptors.request.use(
         // Doctor authentication
         else if (
             url.startsWith("doctors/") ||
-            url.startsWith("doctor-dashboard/")
+            url.startsWith("doctor-dashboard/")||
+            url.startsWith("prescriptions/doctor-patient/") ||
+            url.startsWith("prescriptions/doctor-history/") ||
+            url.startsWith("prescriptions/create/")
         ) {
             config.__authRole = "doctor";
 

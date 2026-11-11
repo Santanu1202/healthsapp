@@ -1,4 +1,5 @@
 from django.urls import path
+from .views import doctor_patient_details
 
 from .views import create_prescription,doctor_patient_prescription_history,patient_today_prescriptions,patient_medical_history
 urlpatterns = [
@@ -21,5 +22,10 @@ urlpatterns = [
         "medical-history/",
         patient_medical_history,
         name="patient-medical-history",
-    )
+    ),
+    path(
+    "doctor-patient/<str:patient_id>/<int:appointment_id>/",
+    doctor_patient_details,
+    name="doctor-patient-details",
+    ),
 ]

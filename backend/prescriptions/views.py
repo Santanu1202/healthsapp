@@ -15,7 +15,7 @@ from appointments.models import Appointment
 from doctors.authentication import DoctorJWTAuthentication
 from .models import Prescription
 from .serializers import PrescriptionSerializer
-
+from accounts.models import Patient
 
 
 @api_view(["POST"])
@@ -157,6 +157,57 @@ def patient_medical_history(request):
         {
             "count": prescriptions.count(),
             "prescriptions": serializer.data,
+        },
+        status=status.HTTP_200_OK,
+    )
+@api_view(["GET"])
+@authentication_classes([DoctorJWTAuthentication])
+@permission_classes([IsAuthenticated])
+def doctor_patient_details(request, patient_id, appointment_id):
+
+    doctor = request.user
+
+    # Verify that this appointment belongs to the logged-in doctor
+    appointment = get_object_or_404(
+        Appointment.objects.select_related("patient", "doctor"),
+        id=appointment_id,
+        doctor=doctor,
+        patient__patient_id=patient_id,
+    )
+
+    patient = appointment.patient
+
+    # Get previous prescriptions for this patient
+    previous_prescriptions = Prescription.objects.filter(
+        patient=patient,
+        appointment__status="Completed",
+    ).exclude(
+        appointment=appointment
+    ).order_by("-created_at")
+
+    return Response(
+        {
+            "patient": {
+                "patient_id": patient.patient_id,
+                "name": patient.name,
+                "age": patient.age,
+                "gender": patient.gender,
+                "phone_number": patient.phone_number,
+                "address": patient.address,
+            },
+            "appointment": {
+                "id": appointment.id,
+                "booking_code": appointment.booking_code,
+                "appointment_date": appointment.appointment_date,
+                "time_slot": appointment.time_slot,
+                "symptoms": appointment.symptoms,
+                "status": appointment.status,
+            },
+            "previous_prescriptions": PrescriptionSerializer(
+                previous_prescriptions,
+                many=True
+            ).data,
+            "is_first_visit": not previous_prescriptions.exists(),
         },
         status=status.HTTP_200_OK,
     )

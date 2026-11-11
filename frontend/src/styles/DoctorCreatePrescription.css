@@ -1,0 +1,253 @@
+
+/* Doctor Create Prescription Page */
+
+.doctor-prescription-page {
+    min-height: 100vh;
+    background: #f5faf8;
+    padding-bottom: 40px;
+}
+
+.prescription-content {
+    width: 92%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+.prescription-header {
+    margin-bottom: 25px;
+}
+
+.prescription-header h1 {
+    color: #164e46;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.prescription-header p {
+    color: #647b75;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Patient Information Card */
+
+.prescription-patient-card {
+    background: #e2f5ee;
+    border: 1px solid #c5e8dc;
+    border-radius: 14px;
+    padding: 22px 25px;
+    margin-bottom: 25px;
+}
+
+.prescription-patient-card h3 {
+    color: #14594f;
+    font-size: 19px;
+    margin: 0 0 18px;
+}
+
+.prescription-patient-details {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.prescription-patient-details div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.prescription-patient-details span {
+    color: #648078;
+    font-size: 12px;
+}
+
+.prescription-patient-details strong {
+    color: #164e46;
+    font-size: 14px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+/* Prescription Form Card */
+
+.prescription-form-card {
+    background: #ffffff;
+    border: 1px solid #e1ece8;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 4px 15px rgba(20, 78, 70, 0.05);
+}
+
+.prescription-form-card h2 {
+    color: #164e46;
+    font-size: 21px;
+    margin: 0 0 24px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e8efec;
+}
+
+.prescription-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.prescription-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.prescription-form-group label {
+    color: #294c44;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.prescription-form-group input,
+.prescription-form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #d5e3de;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #263f39;
+    background: #ffffff;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.prescription-form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.prescription-form-group input:focus,
+.prescription-form-group textarea:focus {
+    border-color: #269b83;
+    box-shadow: 0 0 0 3px rgba(38, 155, 131, 0.12);
+}
+
+.prescription-form-group input::placeholder,
+.prescription-form-group textarea::placeholder {
+    color: #9aada7;
+}
+
+.prescription-form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+/* Save Button */
+
+.prescription-submit-btn {
+    align-self: flex-start;
+    min-width: 190px;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 24px;
+    background: #168b75;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.prescription-submit-btn:hover {
+    background: #116f5e;
+    transform: translateY(-1px);
+}
+
+.prescription-submit-btn:disabled {
+    background: #91bdb2;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Messages */
+
+.prescription-error {
+    padding: 12px 15px;
+    border-radius: 8px;
+    background: #fff0f0;
+    border: 1px solid #f3cccc;
+    color: #bd3030;
+    font-size: 14px;
+}
+
+.prescription-success {
+    padding: 12px 15px;
+    border-radius: 8px;
+    background: #e9f8ef;
+    border: 1px solid #c5e8d1;
+    color: #237344;
+    font-size: 14px;
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+    .prescription-content {
+        width: 94%;
+        margin: 20px auto;
+    }
+
+    .prescription-patient-details {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .prescription-form-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .prescription-header h1 {
+        font-size: 23px;
+    }
+
+    .prescription-patient-details,
+    .prescription-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .prescription-patient-card,
+    .prescription-form-card {
+        padding: 17px;
+    }
+
+    .prescription-submit-btn {
+        width: 100%;
+    }
+}
+
+/* Fix prescription form textarea widths */
+
+.prescription-form-card form {
+    width: 100%;
+}
+
+.prescription-form-card form textarea {
+    display: block;
+    width: 100%;
+    min-height: 110px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+.prescription-form-card form input[type="date"] {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.prescription-form-card form label {
+    display: block;
+    margin-bottom: 8px;
+}

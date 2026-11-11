@@ -1,6 +1,6 @@
 
 from datetime import date, datetime, timedelta
-
+from django.utils import timezone
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 
@@ -68,7 +68,16 @@ def doctor_is_available(doctor, appointment_date, time_slot):
             f"{doctor.available_time}."
         )
 
-    if slot_start.minute not in (0, 30) or slot_end.minute not in (0, 30):
+    doctor_start_minutes = doctor_start.hour * 60 + doctor_start.minute
+    slot_start_minutes = slot_start.hour * 60 + slot_start.minute
+    slot_end_minutes = slot_end.hour * 60 + slot_end.minute
+
+    if (slot_start_minutes - doctor_start_minutes) % 10 != 0:
+        return False, "Invalid 10-minute appointment slot."
+
+    if slot_end_minutes - slot_start_minutes != 10:
+        return False, "Each appointment must be exactly 10 minutes."
+        return False, "Appointments must use 10-minute time slots."
         return False, "Appointments must use 30-minute time slots."
 
     if slot_start.second or slot_end.second:
@@ -77,14 +86,103 @@ def doctor_is_available(doctor, appointment_date, time_slot):
     slot_start_minutes = slot_start.hour * 60 + slot_start.minute
     slot_end_minutes = slot_end.hour * 60 + slot_end.minute
 
-    if slot_end_minutes - slot_start_minutes != 30:
-        return False, "Each appointment must be exactly 30 minutes."
+    if slot_end_minutes - slot_start_minutes != 10:
+        return False, "Each appointment must be exactly 10 minutes."
 
     return True, None
 
 
 
+
 def get_available_slots(doctor, requested_date):
+    # Check whether the selected doctor works on this day.
+    valid_day = {
+        day.strip().lower()
+        for day in doctor.available_days.split(",")
+        if day.strip()
+    }
+
+    requested_day = requested_date.strftime("%A").lower()
+
+    if requested_day not in valid_day:
+        return []
+
+    try:
+        start_text, end_text = doctor.available_time.split("-")
+
+        start_time = datetime.strptime(
+            start_text.strip().upper().replace(" ", ""),
+            "%I:%M%p"
+        ).time()
+
+        end_time = datetime.strptime(
+            end_text.strip().upper().replace(" ", ""),
+            "%I:%M%p"
+        ).time()
+
+    except ValueError:
+        return []
+
+    # GLOBAL SAME-DAY BOOKING CUTOFF
+    # Find the earliest visiting start time among all doctors
+    # working on the requested day.
+
+    if requested_date == timezone.localdate():
+        earliest_start = None
+
+        for current_doctor in Doctor.objects.all():
+            doctor_days = {
+                day.strip().lower()
+                for day in current_doctor.available_days.split(",")
+                if day.strip()
+            }
+
+            if requested_day not in doctor_days:
+                continue
+
+            try:
+                doctor_start_text = (
+                    current_doctor.available_time.split("-")[0]
+                )
+
+                doctor_start = datetime.strptime(
+                    doctor_start_text.strip().upper().replace(" ", ""),
+                    "%I:%M%p"
+                ).time()
+
+            except ValueError:
+                continue
+
+            if earliest_start is None or doctor_start < earliest_start:
+                earliest_start = doctor_start
+
+        # Close booking globally once the earliest visiting
+        # time among all doctors has started.
+        if earliest_start is not None:
+            current_time = timezone.localtime().time()
+
+            if current_time >= earliest_start:
+                return []
+
+    # Generate 30-minute appointment slots.
+    current = datetime.combine(requested_date, start_time)
+    finish = datetime.combine(requested_date, end_time)
+
+    slots = []
+
+    while current + timedelta(minutes=10) <= finish:
+        slot_end = current + timedelta(minutes=10)
+
+        slot_label = (
+            f"{current.strftime('%I:%M %p')} - "
+            f"{slot_end.strftime('%I:%M %p')}"
+        )
+
+        slots.append(slot_label)
+        current = slot_end
+
+    return slots
+
     valid_day = {
         day.strip().lower()
         for day in doctor.available_days.split(",")
@@ -207,8 +305,23 @@ def check_availability(request):
             status=status.HTTP_400_BAD_REQUEST
         )
 
-    slots = get_available_slots(doctor, requested_date)
+    # Check global same-day booking cutoff first.
+    if not is_global_booking_open(requested_date):
+        return Response(
+            {
+                "doctor": doctor.name,
+                "date": str(requested_date),
+                "available_slots": [],
+                "message": (
+                    "Today's appointment booking is closed. "
+                    "Please choose another date."
+                )
+            },
+            status=status.HTTP_200_OK
+        )
 
+    # Generate slots only if booking is still open.
+    slots = get_available_slots(doctor, requested_date)
     approved_count = Appointment.objects.filter(
         doctor=doctor,
         appointment_date=requested_date,
@@ -244,6 +357,52 @@ def check_availability(request):
     )
 
 
+def is_global_booking_open(requested_date):
+    # Future dates remain open for booking.
+    if requested_date > timezone.localdate():
+        return True
+
+    # Past dates are not allowed.
+    if requested_date < timezone.localdate():
+        return False
+
+    requested_day = requested_date.strftime("%A").lower()
+    earliest_start = None
+
+    for doctor in Doctor.objects.all():
+        doctor_days = {
+            day.strip().lower()
+            for day in doctor.available_days.split(",")
+            if day.strip()
+        }
+
+        if requested_day not in doctor_days:
+            continue
+
+        try:
+            start_text = doctor.available_time.split("-")[0]
+
+            doctor_start = datetime.strptime(
+                start_text.strip().upper().replace(" ", ""),
+                "%I:%M%p"
+            ).time()
+
+        except ValueError:
+            continue
+
+        if earliest_start is None or doctor_start < earliest_start:
+            earliest_start = doctor_start
+
+    # No doctor has a valid visiting time for this day.
+    if earliest_start is None:
+        return False
+
+    current_time = timezone.localtime().time()
+
+    return current_time < earliest_start
+    print("CUTOFF DATE:", requested_date)
+    print("EARLIEST DOCTOR START:", earliest_start)
+    print("CURRENT LOCAL TIME:", current_time)
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
@@ -272,17 +431,26 @@ def book_appointment(request):
             {"error": "Past dates cannot be booked."},
             status=status.HTTP_400_BAD_REQUEST
         )
-
-    if appointment_date > date.today() + timedelta(days=60):
-        return Response(
-            {"error": "Appointments can only be booked within 60 days."},
-            status=status.HTTP_400_BAD_REQUEST
-        )
-
-    is_available, error_message = doctor_is_available(
-        doctor, appointment_date, time_slot
+    if not is_global_booking_open(appointment_date):
+      return Response(
+        {
+            "error": (
+                "Today's booking is closed because the doctors' "
+                "visiting time has started. Please choose the next available day."
+            )
+        },
+        status=status.HTTP_400_BAD_REQUEST
     )
 
+    if appointment_date > timezone.localdate() + timedelta(days=60):
+     return Response(
+        {"error": "Appointments can only be booked within 60 days."},
+        status=status.HTTP_400_BAD_REQUEST
+    )
+    is_available, error_message = doctor_is_available(
+    doctor, appointment_date, time_slot
+    )
+      
     if not is_available:
         return Response(
             {"error": error_message},
