@@ -184,7 +184,9 @@ def doctor_patient_details(request, patient_id, appointment_id):
     ).exclude(
         appointment=appointment
     ).order_by("-created_at")
-
+    has_current_prescription = Prescription.objects.filter(
+    appointment=appointment
+).exists()
     return Response(
         {
             "patient": {
@@ -203,11 +205,9 @@ def doctor_patient_details(request, patient_id, appointment_id):
                 "symptoms": appointment.symptoms,
                 "status": appointment.status,
             },
-            "previous_prescriptions": PrescriptionSerializer(
-                previous_prescriptions,
-                many=True
-            ).data,
-            "is_first_visit": not previous_prescriptions.exists(),
+            "previous_prescriptions": PrescriptionSerializer(previous_prescriptions, many=True).data,
+"is_first_visit": not previous_prescriptions.exists(),
+"has_current_prescription": has_current_prescription,
         },
         status=status.HTTP_200_OK,
     )
