@@ -62,6 +62,7 @@ function DoctorPatientDetails() {
                         Back to Doctor Dashboard
                     </button>
                 </main>
+               
             </div>
         );
     }
@@ -71,8 +72,16 @@ function DoctorPatientDetails() {
     const { patient, appointment } = data;
 
     
+const today = new Date().toLocaleDateString("en-CA");
+
+const appointmentDate = appointment.appointment_date;
+
+const isTodayAppointment = appointmentDate === today;
+
+const hasPrescription = data.has_current_prescription;
+
 const actions = [
-    ...(!data.is_first_visit
+    ...(hasPrescription
         ? [
             {
                 icon: "📋",
@@ -85,15 +94,20 @@ const actions = [
         ]
         : []),
 
-    {
-        icon: "💊",
-        title: "Prescriptions",
-        description: data.is_first_visit
-            ? "Create the patient's first prescription."
-            : "Review previous prescriptions and create a new prescription.",
-        link: `/doctor/create-prescription/${patientId}/${appointmentId}`,
-        button: "Create prescription",
-    },
+    ...(isTodayAppointment &&
+    !hasPrescription &&
+    ["Approved", "Completed"].includes(appointment.status)
+        ? [
+            {
+                icon: "💊",
+                title: "Create Prescription",
+                description:
+                    "Create a prescription for today's appointment.",
+                link: `/doctor/create-prescription/${patientId}/${appointmentId}`,
+                button: "Create prescription",
+            },
+        ]
+        : []),
 ];
 
 
@@ -122,7 +136,14 @@ const actions = [
             </header>
 
             <main className="dashboard-content">
-
+                <div className="back-dashboard-wrapper">
+                   <Link
+                    to="/doctor-dashboard"
+                    className="back-dashboard-btn"
+                >
+                     Back to Dashboard
+                   </Link>
+                </div>
                 {/* Patient Information */}
                 
 {/* Patient Profile */}

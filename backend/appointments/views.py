@@ -34,11 +34,11 @@ def doctor_is_available(doctor, appointment_date, time_slot):
         start_text, end_text = doctor.available_time.split("-")
 
         doctor_start = datetime.strptime(
-            start_text.strip().upper().replace(" ", ""),  "%I:%M%p"
+            start_text.strip().upper().replace(" ", "").replace(".", ":"), "%I:%M%p"
         ).time()
 
         doctor_end = datetime.strptime(
-            end_text.strip().upper().replace(" ", ""),  "%I:%M%p"
+            end_text.strip().upper().replace(" ", "").replace(".", ":"), "%I:%M%p"
         ).time()
     except ValueError:
         return False, "The doctor's available-time format is invalid."
@@ -111,12 +111,12 @@ def get_available_slots(doctor, requested_date):
         start_text, end_text = doctor.available_time.split("-")
 
         start_time = datetime.strptime(
-            start_text.strip().upper().replace(" ", ""),
+            start_text.strip().upper().replace(" ", "").replace(".", ":"),
             "%I:%M%p"
         ).time()
 
         end_time = datetime.strptime(
-            end_text.strip().upper().replace(" ", ""),
+            end_text.strip().upper().replace(" ", "").replace(".", ":"),
             "%I:%M%p"
         ).time()
 

@@ -5,19 +5,6 @@ import "../styles/home.css";
 import api from "../services/api";
 import { loginuser } from "../services/authService";
 
-// const doctors = [
-//     { initials: "AS", name: "Dr. Ananya Sen", department: "Cardiology", days: "Mon – Sat", hours: "10:00 AM – 2:00 PM", available: true },
-//     { initials: "RM", name: "Dr. Rahul Mehta", department: "Pediatrics", days: "Mon – Fri", hours: "9:00 AM – 1:00 PM", available: true },
-//     { initials: "SR", name: "Dr. Sneha Roy", department: "Dermatology", days: "Tue, Thu, Sat", hours: "4:00 PM – 7:00 PM", available: false },
-//     { initials: "IK", name: "Dr. Imran Khan", department: "Orthopedics", days: "Mon – Sat", hours: "11:00 AM – 3:00 PM", available: true }
-// ];
-
-const departments = [
-    "Cardiology",
-    "Pediatrics",
-    "Orthopedics",
-    "Dermatology"
-];
 
 function Home() {
     const [name, setName] = useState("");
@@ -25,6 +12,13 @@ function Home() {
     const [age, setAge] = useState("");
     const [date, setDate] = useState("");
     const [doctors, setDoctors] = useState([]);
+    const departments = [
+    ...new Set(
+        doctors
+            .map((doctor) => doctor.department?.trim())
+            .filter(Boolean)
+    )
+].sort((a, b) => a.localeCompare(b));
         // Patient login states
     const [patientId, setPatientId] = useState("");
     const [password, setPassword] = useState("");

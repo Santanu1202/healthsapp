@@ -205,3 +205,39 @@
     background: #dc4545;
     color: #ffffff;
 }
+
+/* Back to Patient Dashboard Button */
+
+.patient-appointments-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.patient-back-dashboard {
+    background: #087f73;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.patient-back-dashboard:hover {
+    background: #065f56;
+}
+
+@media (max-width: 600px) {
+    .patient-appointments-header {
+        align-items: flex-start;
+    }
+
+    .patient-back-dashboard {
+        width: 100%;
+    }
+}

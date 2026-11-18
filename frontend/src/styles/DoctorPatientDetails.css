@@ -678,3 +678,27 @@ section.dashboard-welcome.doctor-patient-profile .doctor-appointment-details {
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
 }
+
+.back-dashboard-wrapper {
+    margin-bottom: 20px;
+}
+
+.back-dashboard-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 20px;
+    background-color: #ffffff;
+    color: #087f75;
+    border: 1px solid #087f75;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.back-dashboard-btn:hover {
+    background-color: #087f75;
+    color: #ffffff;
+}

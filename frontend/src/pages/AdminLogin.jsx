@@ -92,6 +92,14 @@ navigate("/admin-dashboard");
                     >
                         {loading ? "Logging in..." : "Admin Login"}
                     </button>
+                    <button
+                type="button"
+                className="doctor-back-button"
+                onClick={() => navigate("/")}
+                disabled={loading}
+            >
+                Back to Home
+            </button>
                 </form>
             </div>
         </div>

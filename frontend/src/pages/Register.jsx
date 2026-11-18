@@ -48,7 +48,7 @@ function Register() {
                 alert(
                     `Registration successful!\nYour Patient ID is: ${generatedPatientId}`
                 );
-                navigate("/login");
+                navigate("/");
             } else {
                 setError(
                     "Registration response did not include a Patient ID."
@@ -224,7 +224,7 @@ function Register() {
                 </form>
 
                 <p className="register-footer">
-                    Already registered? <Link to="/login">Log in</Link>
+                    Already registered? <Link to="/">Log in</Link>
                 </p>
             </div>
         </div>

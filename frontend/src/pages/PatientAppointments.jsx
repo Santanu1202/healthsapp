@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import "../styles/PatientAppointment.css";
+import { useNavigate } from "react-router-dom";
 
 function PatientAppointments() {
+    const navigate = useNavigate();
     const [appointments, setAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -63,7 +65,13 @@ function PatientAppointments() {
                 <h1>My Appointments</h1>
                 <p>View and manage your scheduled appointments.</p>
             </div>
-
+            <button
+        type="button"
+        className="patient-back-dashboard"
+        onClick={() => navigate("/dashboard")}
+    >
+        Back to Dashboard
+    </button>
             {loading && (
                 <p className="patient-appointments-message">
                     Loading your appointments...

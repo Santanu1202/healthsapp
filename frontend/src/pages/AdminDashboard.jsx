@@ -37,6 +37,7 @@ useEffect(() => {
                     <h1 style={styles.logo}>HealthsApp</h1>
                     <p style={styles.subtitle}>Administrator Dashboard</p>
                 </div>
+        
 
                 
                 
@@ -52,6 +53,7 @@ useEffect(() => {
 >
     Logout
 </button>
+
 
             </header>
 
