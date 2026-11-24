@@ -266,3 +266,31 @@
     margin-top: 0;
     color: #087d73;
 }
+.booking-back-wrapper {
+    
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top:20px
+}
+
+.patient-back-dashboard {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 18px;
+    background: #ffffff;
+    color: #087f75;
+    border: 1px solid #087f75;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+
+.patient-back-dashboard:hover {
+    background: #087f75;
+    color: #ffffff;
+}

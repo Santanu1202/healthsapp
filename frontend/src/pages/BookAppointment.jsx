@@ -1,9 +1,11 @@
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "../styles/book-appointment.css";
 
 function BookAppointments() {
+    const navigate = useNavigate();
     const [doctors, setDoctors] = useState([]);
     const [department, setDepartment] = useState("");
     const [doctorId, setDoctorId] = useState("");
@@ -17,6 +19,7 @@ function BookAppointments() {
     const [submittingBooking, setSubmittingBooking] = useState(false);
     const [loadingDoctors, setLoadingDoctors] = useState(true);
     const [loadingSlots, setLoadingSlots] = useState(false);
+   
 
     useEffect(() => {
         const loadDoctors = async () => {
@@ -144,12 +147,12 @@ const confirmBooking = async () => {
  };
 
     return (
-        <div className="booking-page">
+        <div className="booking-page">    
             <main className="booking-card">
                 <div className="booking-heading">
                     <div className="booking-heading-icon">+</div>
                     <p className="booking-eyebrow">HEALTHSAPP PATIENT PORTAL</p>
-                    <h1>Book an Appointment</h1>
+                    <h1>Book an Appointment</h1>                 
                     <p>
                         Select your department, doctor, date and available
                         time slot.
@@ -278,6 +281,15 @@ const confirmBooking = async () => {
                         </div>
                     </>
                 )}
+            <div className="booking-back-wrapper">
+    <button
+        type="button"
+        className="patient-back-dashboard"
+        onClick={() => navigate("/dashboard")}
+    >
+        Back to Dashboard
+    </button>
+</div>
 
                 
 {selectedSlot && (
@@ -379,5 +391,7 @@ const confirmBooking = async () => {
         </div>
     );
 }
+
+
 
 export default BookAppointments;
