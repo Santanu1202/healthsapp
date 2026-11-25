@@ -1,0 +1,47 @@
+[33mcommit 3b5864019c1630f1ef6fb4ccece4d2820c317b86[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Santanu1202 <santanurana1202@gmail.com>
+Date:   Wed Nov 25 01:08:05 2026 +0530
+
+    navigation fixup
+
+[33mcommit 1f78ec27f831a3f7b06b9c484b4ba7ed64485ffe[m
+Author: Santanu1202 <santanurana1202@gmail.com>
+Date:   Thu Nov 19 01:15:15 2026 +0530
+
+    Navigation from
+
+[33mcommit c6aeb25ce69710720287afaa5dfa8fae2a9f256d[m
+Author: Santanu1202 <santanurana1202@gmail.com>
+Date:   Thu Nov 12 23:27:58 2026 +0530
+
+    prescription module update in doctors login update and department filter done
+
+[33mcommit 4c335b441c0ef93a75cc90835539484628e8ab3f[m
+Author: Santanu1202 <santanurana1202@gmail.com>
+Date:   Wed Nov 11 19:22:07 2026 +0530
+
+    prescription module on doctor end
+
+[33mcommit e3543bbb881ada51cafca20e7c853fffdf64abe8[m
+Author: Santanu1202 <santanurana1202@gmail.com>
+Date:   Fri Nov 6 01:34:28 2026 +0530
+
+    prescription module created from patient and the doctor end but not complete . tomorrow it will fix properly
+
+[33mcommit 94e69674ad21150b36433c56526da3bce917d8c5[m
+Author: Santanu1202 <santanurana1202@gmail.com>
+Date:   Thu Nov 5 00:17:47 2026 +0530
+
+    Add public booking tracking on homepage and admin section search option via booking id
+
+[33mcommit 901a9ed2e56d961d7db8dd0bf6dd9f51bdfc0fe1[m
+Author: Santanu1202 <santanurana1202@gmail.com>
+Date:   Wed Nov 4 00:26:21 2026 +0530
+
+    Add patient search to admin dashboard and in admin panel recent appointment showing
+
+[33mcommit e513195eb1b88313f1df24ea4e42eea8c78bfd8f[m
+Author: Santanu1202 <santanurana1202@gmail.com>
+Date:   Tue Nov 3 22:18:31 2026 +0530
+
+    Initial commit - HealthsApp full stack project

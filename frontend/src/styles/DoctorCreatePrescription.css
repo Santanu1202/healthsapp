@@ -251,3 +251,104 @@
     display: block;
     margin-bottom: 8px;
 }
+/* Print button */
+.prescription-print-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 25px;
+    background: #198754;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.prescription-print-btn:hover {
+    background: #146c43;
+}
+
+/* Printable prescription preview */
+.prescription-print-area {
+    display: none;
+}
+
+/* Print layout */
+@media print {
+
+    @page {
+        size: A4;
+        margin: 20mm;
+    }
+
+    body {
+        background: #fff !important;
+    }
+
+    .dashboard-navbar,
+    .dashboard-welcome,
+    .prescription-patient-card,
+    .prescription-form-card,
+    .prescription-print-btn {
+        display: none !important;
+    }
+
+    .prescription-print-area {
+        display: block !important;
+        width: 100%;
+        color: #000;
+        background: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 12pt;
+        line-height: 1.6;
+    }
+
+    .print-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .print-header h1 {
+        font-size: 26pt;
+        margin-bottom: 5px;
+        color: #000;
+    }
+
+    .print-header h2 {
+        font-size: 18pt;
+        margin: 5px 0;
+    }
+
+    .print-header p {
+        margin: 0;
+        color: #444;
+    }
+
+    .print-patient-details,
+    .print-prescription-details {
+        margin: 20px 0;
+    }
+
+    .print-patient-details h3,
+    .print-prescription-details h3 {
+        font-size: 13pt;
+        margin: 15px 0 5px;
+        color: #000;
+    }
+
+    .print-prescription-text {
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+    }
+
+    .print-footer {
+        margin-top: 60px;
+        text-align: right;
+    }
+
+    .prescription-print-area hr {
+        border: none;
+        border-top: 1px solid #777;
+    }
+}

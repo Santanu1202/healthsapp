@@ -238,3 +238,93 @@
         flex-direction: column;
     }
 }
+
+/* Medical History Department Selection */
+
+.medical-history-page {
+    max-width: 850px;
+    margin: 35px auto;
+}
+
+.medical-history-intro {
+    margin-bottom: 30px;
+}
+
+.medical-history-intro h1 {
+    margin: 0 0 12px;
+    color: #173638;
+    font-size: 34px;
+    font-weight: 700;
+}
+
+.medical-history-intro p {
+    max-width: 600px;
+    color: #6a807d;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.medical-history-selection {
+    padding: 30px;
+    border: 1px solid #deebe8;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 5px 22px rgba(24, 67, 62, 0.05);
+}
+
+.medical-history-selection h2 {
+    margin: 0 0 8px;
+    color: #173638;
+    font-size: 20px;
+}
+
+.medical-history-selection > p {
+    margin-bottom: 22px;
+    color: #718581;
+    font-size: 14px;
+}
+
+.medical-history-filter {
+    max-width: 100%;
+    margin: 0;
+}
+
+.medical-history-filter label {
+    display: block;
+    margin-bottom: 10px;
+    color: #355956;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.medical-history-filter select {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #cfe1dc;
+    border-radius: 10px;
+    background: #f9fcfb;
+    color: #173638;
+    font-size: 15px;
+    outline: none;
+    cursor: pointer;
+}
+
+.medical-history-filter select:focus {
+    border-color: #087d73;
+    box-shadow: 0 0 0 3px rgba(8, 125, 115, 0.10);
+}
+
+@media (max-width: 650px) {
+    .medical-history-page {
+        margin: 15px auto;
+    }
+
+    .medical-history-intro h1 {
+        font-size: 28px;
+    }
+
+    .medical-history-selection {
+        padding: 22px;
+    }
+}
+

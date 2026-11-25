@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
 import "../styles/dashboard.css";
+import generatePrescriptionPDF from "../utils/generatePrescriptionPDF";
 
 function MedicalHistory() {
     const [prescriptions, setPrescriptions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [selectedDepartment, setSelectedDepartment] = useState("");
 
     useEffect(() => {
         const fetchMedicalHistory = async () => {
@@ -29,7 +31,18 @@ function MedicalHistory() {
 
         fetchMedicalHistory();
     }, []);
+    const departments = [
+    ...new Set(
+        prescriptions
+            .map((prescription) => prescription.doctor_department)
+            .filter(Boolean)
+    ),
+];
 
+const filteredPrescriptions = prescriptions.filter(
+    (prescription) =>
+        prescription.doctor_department === selectedDepartment
+);
     return (
         <div className="patient-dashboard">
             <header className="dashboard-navbar">
@@ -47,6 +60,28 @@ function MedicalHistory() {
                 <section className="dashboard-section">
                     <h1>Medical History</h1>
                     <p>All your previous prescriptions from different doctors.</p>
+                    <div className="medical-history-filter">
+    <label htmlFor="department-filter">
+        Select Department
+    </label>
+
+    <select
+        id="department-filter"
+        value={selectedDepartment}
+        onChange={(e) => setSelectedDepartment(e.target.value)}
+    >
+        <option value="">Select Department</option>
+
+        {departments.map((department) => (
+            <option key={department} value={department}>
+                {department}
+            </option>
+        ))}
+    </select>
+</div>
+{!loading && !selectedDepartment && (
+    <p>Please select a department to view your medical history.</p>
+)}
 
                     {loading && <p>Loading medical history...</p>}
 
@@ -56,7 +91,7 @@ function MedicalHistory() {
                         <p>No medical history available yet.</p>
                     )}
 
-                    {!loading && prescriptions.map((prescription) => (
+                    {!loading && selectedDepartment && filteredPrescriptions.map((prescription) => (
                         <article
                             className="patient-action-card"
                             key={prescription.id}
@@ -105,6 +140,12 @@ function MedicalHistory() {
                                 <strong>Follow-up date:</strong>{" "}
                                 {prescription.follow_up_date || "—"}
                             </p>
+                            <button
+    type="button"
+    onClick={() => generatePrescriptionPDF(prescription)}
+>
+    Download Prescription PDF
+</button>
                         </article>
                     ))}
                 </section>

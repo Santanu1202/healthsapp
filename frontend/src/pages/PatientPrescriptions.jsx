@@ -73,15 +73,16 @@ function PatientPrescriptions() {
                             <p><strong>Instructions:</strong> {prescription.instructions || "—"}</p>
                             <p><strong>Tests advised:</strong> {prescription.tests_advised || "—"}</p>
                             <p><strong>Follow-up:</strong> {prescription.follow_up_date || "—"}</p>
-                        </article>
-                    ))}
-                    <button
+                            <button
     type="button"
     onClick={() => generatePrescriptionPDF(prescription)}
     className="patient-action-link"
 >
     Download Prescription PDF ↓
 </button>
+                        </article>
+                    ))}
+                
                 </section>
             </main>
         </div>

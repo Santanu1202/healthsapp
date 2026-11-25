@@ -14,6 +14,7 @@ function DoctorCreatePrescription() {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [savedPrescription, setSavedPrescription] = useState(null);
 
     const [formData, setFormData] = useState({
         diagnosis: "",
@@ -67,6 +68,13 @@ setAppointment(response.data);
 
             setSuccess(response.data.message);
 
+setSavedPrescription({
+    ...formData,
+    patient,
+    appointment: appointmentDetails,
+    savedAt: new Date().toLocaleDateString(),
+});
+
         } catch (err) {
             console.error(err);
 
@@ -83,6 +91,70 @@ setAppointment(response.data);
         return (
             <main className="dashboard-content">
                 Loading appointment details...
+                {savedPrescription && (
+    <section className="prescription-print-area">
+        <div className="print-header">
+            <h1>HealthsApp</h1>
+            <h2>Medical Prescription</h2>
+            <p>Doctor's Prescription Copy</p>
+        </div>
+
+        <hr />
+
+        <div className="print-patient-details">
+            <h3>Patient Information</h3>
+
+            <p><strong>Patient:</strong> {savedPrescription.patient.name}</p>
+            <p><strong>Patient ID:</strong> {savedPrescription.patient.patient_id}</p>
+            <p><strong>Age:</strong> {savedPrescription.patient.age ?? "Not provided"}</p>
+            <p><strong>Gender:</strong> {savedPrescription.patient.gender || "Not provided"}</p>
+            <p><strong>Booking ID:</strong> {savedPrescription.appointment.booking_code}</p>
+            <p><strong>Appointment Date:</strong> {savedPrescription.appointment.appointment_date}</p>
+        </div>
+
+        <hr />
+
+        <div className="print-prescription-details">
+            <h3>Diagnosis</h3>
+            <p>{savedPrescription.diagnosis}</p>
+
+            <h3>Medicines</h3>
+            <p className="print-prescription-text">
+                {savedPrescription.medicines}
+            </p>
+
+            {savedPrescription.instructions && (
+                <>
+                    <h3>Instructions</h3>
+                    <p className="print-prescription-text">
+                        {savedPrescription.instructions}
+                    </p>
+                </>
+            )}
+
+            {savedPrescription.tests_advised && (
+                <>
+                    <h3>Tests Advised</h3>
+                    <p className="print-prescription-text">
+                        {savedPrescription.tests_advised}
+                    </p>
+                </>
+            )}
+
+            {savedPrescription.follow_up_date && (
+                <>
+                    <h3>Follow-up Date</h3>
+                    <p>{savedPrescription.follow_up_date}</p>
+                </>
+            )}
+        </div>
+
+        <div className="print-footer">
+            <p>Doctor's Signature: ____________________</p>
+            <p>Generated on: {savedPrescription.savedAt}</p>
+        </div>
+    </section>
+)}
             </main>
         );
     }
@@ -170,6 +242,15 @@ setAppointment(response.data);
                             {success}
                         </p>
                     )}
+                    {savedPrescription && (
+    <button
+        type="button"
+        className="prescription-print-btn"
+        onClick={() => window.print()}
+    >
+        Print Prescription
+    </button>
+)}
 
                     <form onSubmit={handleSubmit} className="prescription-form">
 

@@ -4,7 +4,10 @@ from .models import Prescription
 
 
 class PrescriptionSerializer(serializers.ModelSerializer):
-
+    doctor_department = serializers.CharField(
+        source="doctor.department",
+        read_only=True
+    )
     class Meta:
         model = Prescription
         fields = [
@@ -15,6 +18,9 @@ class PrescriptionSerializer(serializers.ModelSerializer):
             "patient_age",
             "patient_gender",
             "doctor_name",
+            "doctor_name",
+            "doctor_department",
+            "doctor_degree",   
             "doctor_degree",
             "doctor_registration_no",
             "diagnosis",
@@ -23,6 +29,7 @@ class PrescriptionSerializer(serializers.ModelSerializer):
             "tests_advised",
             "follow_up_date",
             "created_at",
+            "doctor_department",
         ]
 
         read_only_fields = [
